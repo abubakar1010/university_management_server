@@ -1,6 +1,6 @@
-import app from '@src/app'
 import mongoose from 'mongoose'
-import {config} from '@src/app/config/index'
+import { config } from './app/config';
+import app from './app';
 
 const port = config.port ?? 8000;
 const uri = config.db_uri as string;

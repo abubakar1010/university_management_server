@@ -1,3 +1,4 @@
+import "module-alias/register"
 import app from '@src/app'
 import mongoose from 'mongoose'
 import {config} from '@src/app/config/index'

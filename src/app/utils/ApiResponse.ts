@@ -1,14 +1,14 @@
-class ApiResponse {
-	success: boolean;
+class ApiResponse<T> {
 	statusCode: number;
 	message: string;
+	success: boolean;
 	type?: string;
-	data: Record<string, unknown>[];
+	data:T;
 	constructor(
-		success: boolean = true,
 		statusCode: number,
 		message: string,
-        data: Record<string, unknown>[] =[{}],
+        data: T,
+		success: boolean = true,
 	) {
 		this.success = success;
 		this.statusCode = statusCode;

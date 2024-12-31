@@ -7,10 +7,10 @@ class ApiError extends Error {
 	error: Record<string, unknown>[];
 	stack: string | undefined;
 	constructor(
-		success: boolean,
+		success: boolean = false,
 		statusCode: number,
 		message: string,
-		path: string,
+		path: string = "",
 		type: string = "unknownError",
 		error: [Record<string, unknown>] = [{}],
 		stack?: string | undefined
@@ -19,7 +19,7 @@ class ApiError extends Error {
 		this.success = success;
 		this.statusCode = statusCode;
 		this.message = message;
-		this.path = path;
+        this.path = path;
 		this.type = type;
 		this.error = error;
 

@@ -1,19 +1,19 @@
 class ApiError extends Error {
 	success: boolean;
-	statusCode: number;
+    statusCode: number;
 	message: string;
 	path: string;
-	type?: string;
+	type: string;
 	error: Record<string, unknown>[];
 	stack: string | undefined;
 	constructor(
-		success: boolean = false,
 		statusCode: number,
 		message: string,
 		path: string = "",
 		type: string = "unknownError",
+		success: boolean = false,
 		error: [Record<string, unknown>] = [{}],
-		stack?: string | undefined
+		stack: string = ""
 	) {
 		super(message);
 		this.success = success;

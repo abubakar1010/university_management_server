@@ -1,7 +1,6 @@
 export  type TUserRole = "STUDENT" | "ADMIN" | "FACULTY"
 
 export interface TUser {
-    username: string;
     userid: string;
     email: string;
     password: string;

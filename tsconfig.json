@@ -6,10 +6,12 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "skipDefaultLibCheck": false,
-    "skipLibCheck": false
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules"]

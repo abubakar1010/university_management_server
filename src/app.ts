@@ -1,17 +1,22 @@
 import express from 'express'
+import path from 'path'
+import { notFoundRoute } from './app/utils/notFoundRoute'
 
 const app = express()
 
+// parser
 
-app.get("/", (req, res) => {
+app.use(express.json())
+app.use( express.static(path.join(__dirname,"../src/public")))
+app.use(express.urlencoded({extended: true, limit: "1000kb"}))
 
-    res.json({message: "server is connected"})
+app.patch("/user", (req, res) => {
+    console.log(req.body);
+    res.send(req.body)
 })
 
-app.post("/user", (req, res) => {
-    
-})
 
 
+app.use(notFoundRoute)
 
 export default app;

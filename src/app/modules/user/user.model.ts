@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
+import bcrypt from 'bcrypt'
 
 const userSchema = new Schema<TUser>({
 	userid: {
@@ -14,7 +15,7 @@ const userSchema = new Schema<TUser>({
         trim: true,
 		validate: {
 			validator: function (email) {
-				return /^[a-z0-9\\._%+!$&*=^|~#%'`?{}/\\-]+@([a-z0-9\\-]+\\.){1,}([a-z]{2,16})$/.test(
+				return /^[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+.){1,}([a-z]{2,16})$/.test(
 					email
 				);
 			},
@@ -60,6 +61,11 @@ const userSchema = new Schema<TUser>({
         default: Date.now()
 	},
 });
+
+
+userSchema.pre("save", async function(){
+    this.password = await bcrypt.hash(this.password, 10)
+})
 
 const User = model<TUser>("User", userSchema);
 

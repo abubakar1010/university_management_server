@@ -4,7 +4,6 @@ import User from "./user.model";
 
 const registerService = async (userData: TUser) => {
 	const filter = {
-		username: userData.username,
 		email: userData.email,
 		userid: userData.userid,
 	};

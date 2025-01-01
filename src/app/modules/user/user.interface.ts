@@ -1,11 +1,15 @@
-export  type TUserRole = "STUDENT" | "ADMIN" | "FACULTY"
+import { TStatus, TUserRole } from "../../types";
 
-export interface TUser {
+export type TUser =  {
     userid: string;
     email: string;
     password: string;
-    status: "PENDING" | "ACCEPTED" | "REJECTED" | "BLOCKED";
+    status: TStatus;
     role: TUserRole;
     lastPasswordChange: Date;
 }
 
+export type TLoginCredential = {
+    userid: string;
+    password: string
+}

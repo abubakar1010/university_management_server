@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
 import bcrypt from 'bcrypt'
+import { Status, UserROle } from "../../constant";
 
 const userSchema = new Schema<TUser>({
 	userid: {
@@ -41,7 +42,7 @@ const userSchema = new Schema<TUser>({
 	role: {
 		type: String,
 		enum: {
-            values: ["STUDENT", "FACULTY", "ADMIN"],
+            values: UserROle,
             message: '{VALUE} is not supported'
         },
 		required: true,
@@ -49,7 +50,7 @@ const userSchema = new Schema<TUser>({
 	status: {
 		type: String,
 		enum: {
-            values: ["PENDING", "ACCEPTED", "REJECTED", "BLOCKED"],
+            values: Status,
             message: "{VALUE} is not supported"
         },
 		default: "PENDING",
@@ -65,6 +66,10 @@ const userSchema = new Schema<TUser>({
 
 userSchema.pre("save", async function(){
     this.password = await bcrypt.hash(this.password, 10)
+})
+
+userSchema.static("isPasswordMatched",function(){
+
 })
 
 const User = model<TUser>("User", userSchema);

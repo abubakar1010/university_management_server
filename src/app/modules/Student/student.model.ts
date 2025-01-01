@@ -12,10 +12,10 @@ const studentSchema = new Schema<TStudent>(
             required: [true,"user reference is required"],
             ref: "User",
             validate:{
-                validator: function(ObjectId){
-                    return /^[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+.){1,}([a-z]{2,16})$/.test(ObjectId)
+                validator: function(objectId){
+                    return /^[a-fA-F0-9]{24}$/.test(objectId)
                 },
-                message: props => `${props.value} is invalid objectId`
+                message: 'Data type of {VALUE} must be mongodb objectId'
             }
             
         },

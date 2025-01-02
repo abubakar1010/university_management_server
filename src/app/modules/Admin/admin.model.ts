@@ -1,18 +1,19 @@
-
-
 import { model, Schema } from "mongoose";
 import { TAdmin } from "./admin.interface";
 import { addressSchema, fullNameSchema } from "../../models";
 import { Gender } from "../../constant";
-
-    
+import { validateObjectId } from "../../utils/ObjectValidator";
 
 const adminSchema = new Schema<TAdmin>(
-    {
-        user: {
+	{
+		user: {
 			type: Schema.ObjectId,
-            ref: "User",
+			ref: "User",
 			required: [true, "User reference is required"],
+			validate: {
+				validator: (objectid) => validateObjectId(objectid),
+				message: "Data type of {VALUE} must be mongodb objectId",
+			},
 		},
 		userid: {
 			type: String,
@@ -46,10 +47,10 @@ const adminSchema = new Schema<TAdmin>(
 			required: [true, "Avatar is required"],
 		},
 		address: addressSchema,
-    },
-    {
-        timestamps: true
-    }
-)
+	},
+	{
+		timestamps: true,
+	}
+);
 
-export const Admin = model<TAdmin>("Admin", adminSchema)
+export const Admin = model<TAdmin>("Admin", adminSchema);

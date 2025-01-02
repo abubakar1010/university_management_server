@@ -6,6 +6,7 @@
 
 import { model, Schema } from "mongoose";
 import { TAcademicDepartment } from "./academicDepartment.interface";
+import { validateObjectId } from "../../utils/ObjectValidator";
 
 
 
@@ -20,9 +21,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
             ref: "Course",
             required: [true, "Course id is required"],
             validate:{
-                validator: function(objectId){
-                    return /^[a-fA-F0-9]{24}$/.test(objectId)
-                },
+                validator: (objectid) => validateObjectId(objectid),
                 message: 'Data type of {VALUE} must be mongodb objectId'
             }
         }],
@@ -31,9 +30,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
             ref: "Faculty",
             required: [true, "Reference ID is required"],
             validate:{
-                validator: function(objectId){
-                    return /^[a-fA-F0-9]{24}$/.test(objectId)
-                },
+                validator: (objectid) => validateObjectId(objectid),
                 message: 'Data type of {VALUE} must be mongodb objectId'
             }
         }],
@@ -42,9 +39,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
             ref: "Student",
             required: [true, "Reference ID is required"],
             validate:{
-                validator: function(objectId){
-                    return /^[a-fA-F0-9]{24}$/.test(objectId)
-                },
+                validator: (objectid) => validateObjectId(objectid),
                 message: 'Data type of {VALUE} must be mongodb objectId'
             }
         }],

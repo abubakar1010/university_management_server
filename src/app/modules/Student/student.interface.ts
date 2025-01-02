@@ -15,4 +15,9 @@ export type TStudent = {
 	emergencyContact: string;
 	guardian: TGuardian;
     localGuardian: TGuardian;
+	admissionSemester: Types.ObjectId;
+	enrolledSemester: Types.ObjectId[];
+	department: Types.ObjectId;
+	faculty: Types.ObjectId;
+	enrolledCourses: Types.ObjectId[];
 };

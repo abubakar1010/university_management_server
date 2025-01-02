@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { TUser } from "./user.interface";
 import bcrypt from 'bcrypt'
-import { Status, UserROle } from "../../constant";
+import {  UserROle, UserStatus } from "../../constant";
 
 const userSchema = new Schema<TUser>({
 	userid: {
@@ -50,7 +50,7 @@ const userSchema = new Schema<TUser>({
 	status: {
 		type: String,
 		enum: {
-            values: Status,
+            values: UserStatus,
             message: "{VALUE} is not supported"
         },
 		default: "PENDING",

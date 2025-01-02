@@ -1,15 +1,15 @@
-import { TStatus, TUserRole } from "../../types";
+import { TUserStatus, TUserRole } from "../../types";
 
-export type TUser =  {
-    userid: string;
-    email: string;
-    password: string;
-    status: TStatus;
-    role: TUserRole;
-    lastPasswordChange: Date;
-}
+export type TUser = {
+	userid: string;
+	email: string;
+	password: string;
+	status: TUserStatus;
+	role: TUserRole;
+	lastPasswordChange: Date;
+};
 
 export type TLoginCredential = {
-    userid: string;
-    password: string
-}
+	userid: string;
+	password: string;
+};

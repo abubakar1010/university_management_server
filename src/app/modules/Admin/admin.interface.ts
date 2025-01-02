@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { TAddress, TFullName, TGender } from "../../types";
 
-export type TFaculty = {
+export type TAdmin = {
     userid: string;
     user: Types.ObjectId;
     fullname: TFullName;

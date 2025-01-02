@@ -1,6 +1,6 @@
-import { TGender, TStatus, TUserRole } from "../types";
+import {  TStatus, TUserRole } from "../types";
 
-const Gender: TGender[] = ["MALE", "FEMALE"];
+const Gender:["MALE","FEMALE"] = ["MALE", "FEMALE"];
 
 const UserROle: TUserRole[] = ["STUDENT", "FACULTY", "ADMIN"];
 

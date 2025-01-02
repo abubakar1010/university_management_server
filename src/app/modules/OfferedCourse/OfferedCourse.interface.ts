@@ -4,7 +4,7 @@ import { TSchedule } from "../../types";
 
 export type TOfferedCourse = {
     course: Types.ObjectId;
-    faculty: Types.ObjectId;
+    faculties: [Types.ObjectId];
     academicFaculty: Types.ObjectId;
     academicDepartment: Types.ObjectId;
     capacity: number;

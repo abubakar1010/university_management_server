@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { TAddress, TFullName, TGuardian } from "../types";
+import { TAddress, TFullName, TGuardian, TSchedule } from "../types";
 
 const fullNameSchema = new Schema<TFullName>(
 	{
@@ -64,14 +64,22 @@ const addressSchema = new Schema<TAddress>(
         _id: false
     }
 )
-// const guardianSchema = new Schema(
-//     {
+const scheduleSchema = new Schema<TSchedule>(
+    {
+        day:{
+            type: String,
+            required: [true, "Day is required"]
+        },
+        time:{
+            type: String,
+            required: [true, "Time is required"]
+        }
 
-//     },
-//     {
-//         _id: false
-//     }
-// )
+    },
+    {
+        _id: false
+    }
+)
 // const guardianSchema = new Schema(
 //     {
 
@@ -93,6 +101,7 @@ const addressSchema = new Schema<TAddress>(
 export {
     fullNameSchema,
     guardianSchema,
-    addressSchema
+    addressSchema,
+    scheduleSchema
     
 }

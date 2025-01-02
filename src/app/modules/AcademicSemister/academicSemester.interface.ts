@@ -1,12 +1,11 @@
+import { TDuration, TSemesterStatus } from "../../types";
+
 export type TAcademicSemester = {
     semesterName: string;
     year: Date;
-    code: string;
-    duration: {
-        start: Date;
-        month: Date;
-    }
-    status: "UPCOMING" | "ONGOING" | "ENDED"
-    lastAdmissionDate: Date;
+    semesterCode: string;
+    duration: TDuration
+    status: TSemesterStatus
+    deadline: Date;
 
 }

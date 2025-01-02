@@ -4,7 +4,7 @@ import { validateObjectId } from "../../utils/ObjectValidator";
 
 const academicFacultySchema = new Schema<TAcademicFaculty>(
 	{
-		facultyName: {
+		academicFacultyName: {
 			type: String,
 			required: [true, "Faculty name is required"],
 		},
@@ -12,7 +12,7 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Course",
-				required: [true, "Course id is required"],
+				// required: [true, "Course id is required"],
 				validate: {
 					validator: (objectid) => validateObjectId(objectid),
 					message: "Data type of {VALUE} must be mongodb objectId",
@@ -23,7 +23,7 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Faculty",
-				required: [true, "Reference ID is required"],
+				// required: [true, "Reference ID is required"],
 				validate: {
 					validator: (objectid) => validateObjectId(objectid),
 					message: "Data type of {VALUE} must be mongodb objectId",
@@ -34,7 +34,7 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			{
 				type: Schema.Types.ObjectId,
 				ref: "AcademicDepartment",
-				required: [true, "Reference ID is required"],
+				// required: [true, "Reference ID is required"],
 				validate: {
 					validator: (objectid) => validateObjectId(objectid),
 					message: "Data type of {VALUE} must be mongodb objectId",
@@ -45,7 +45,7 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			{
 				type: Schema.Types.ObjectId,
 				ref: "Student",
-				required: [true, "Reference ID is required"],
+				// required: [true, "Reference ID is required"],
 				validate: {
 					validator: (objectid) => validateObjectId(objectid),
 					message: "Data type of {VALUE} must be mongodb objectId",

@@ -1,18 +1,3 @@
-// userid: string;
-//     user: Types.ObjectId;
-//     fullname: TFullName;
-//     designation: string;
-//     dateOfBirth: Date;
-//     gender: TGender;
-//     contact: string[];
-//     emergencyContact: string;
-//     address: TAddress;
-//     avatar: string;
-//     academicFaculty: Types.ObjectId;
-//     academicDepartment: Types.ObjectId;
-//     courses: Types.ObjectId[];
-//     schedule: (TSchedule & {course: Types.ObjectId})[]
-
 import { model, Schema } from "mongoose";
 import { TFaculty } from "./faculty.interface";
 import { addressSchema, fullNameSchema, scheduleSchema } from "../../models";

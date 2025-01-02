@@ -1,13 +1,12 @@
-import {  TStatus, TUserRole } from "../types";
+import { TUserStatus, TUserRole, TSemesterStatus } from "../types";
 
-const Gender:["MALE","FEMALE"] = ["MALE", "FEMALE"];
+const Gender: ["MALE", "FEMALE"] = ["MALE", "FEMALE"];
 
 const UserROle: TUserRole[] = ["STUDENT", "FACULTY", "ADMIN"];
 
-const Status: TStatus[] = ["PENDING", "ACCEPTED", "REJECTED", "BLOCKED"];
+const UserStatus: TUserStatus[] = ["PENDING", "ACCEPTED", "REJECTED", "BLOCKED"];
 
-export {
-    Gender,
-    UserROle,
-    Status
-}
+const SemesterStatus: TSemesterStatus[] = ["UPCOMING", "ONGOING", "ENDED"]
+
+
+export { Gender, UserROle, UserStatus, SemesterStatus };

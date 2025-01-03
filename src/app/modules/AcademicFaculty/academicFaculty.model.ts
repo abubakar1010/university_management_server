@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { TAcademicFaculty } from "./academicFaculty.interface";
-import { validateObjectId } from "../../utils/ObjectValidator";
 
 const academicFacultySchema = new Schema<TAcademicFaculty>(
 	{
@@ -8,50 +7,26 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			type: String,
 			required: [true, "Faculty name is required"],
 		},
-		facultyCourses: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "Course",
-				// required: [true, "Course id is required"],
-				validate: {
-					validator: (objectid) => validateObjectId(objectid),
-					message: "Data type of {VALUE} must be mongodb objectId",
-				},
-			},
-		],
-		facultyMembers: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "Faculty",
-				// required: [true, "Reference ID is required"],
-				validate: {
-					validator: (objectid) => validateObjectId(objectid),
-					message: "Data type of {VALUE} must be mongodb objectId",
-				},
-			},
-		],
-		facultyDepartments: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "AcademicDepartment",
-				// required: [true, "Reference ID is required"],
-				validate: {
-					validator: (objectid) => validateObjectId(objectid),
-					message: "Data type of {VALUE} must be mongodb objectId",
-				},
-			},
-		],
-		facultyStudents: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: "Student",
-				// required: [true, "Reference ID is required"],
-				validate: {
-					validator: (objectid) => validateObjectId(objectid),
-					message: "Data type of {VALUE} must be mongodb objectId",
-				},
-			},
-		],
+		dean: {
+			type: String,
+			required: [true, "Dean name is required"],
+		},
+		contactEmail: {
+			type: String,
+			required: [true, "contact email name is required"],
+		},
+		contactPhone: {
+			type: String,
+			required: [true, "contact phone name is required"],
+		},
+		location: {
+			type: String,
+			required: [true, "location is required"],
+		},
+		stablishYear:{
+			type: Date,
+			required: [true, "Stablish year is required"]
+		}
 	},
 	{
 		timestamps: true,

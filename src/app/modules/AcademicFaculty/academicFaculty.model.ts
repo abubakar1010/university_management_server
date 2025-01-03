@@ -11,13 +11,13 @@ const academicFacultySchema = new Schema<TAcademicFaculty>(
 			type: String,
 			required: [true, "Dean name is required"],
 		},
-		contactEmail: {
+		email: {
 			type: String,
-			required: [true, "contact email name is required"],
+			required: [true, " email address is required"],
 		},
-		contactPhone: {
+		contact: {
 			type: String,
-			required: [true, "contact phone name is required"],
+			required: [true, "contact number  is required"],
 		},
 		location: {
 			type: String,

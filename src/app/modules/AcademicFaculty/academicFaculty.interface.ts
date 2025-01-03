@@ -3,7 +3,7 @@ export type TAcademicFaculty = {
     academicFacultyName: string;
     dean: string;
     stablishYear: Date;
-    contactEmail: string;
-    contactPhone: string;
+    email: string;
+    contact: string;
     location: string;
 }

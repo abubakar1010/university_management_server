@@ -1,23 +1,50 @@
-import { Types } from "mongoose";
-import { TAddress, TFullName, TGuardian } from "../../types";
+import { Model, Types } from 'mongoose';
 
+export type TUserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
 
+export type TGuardian = {
+  fatherName: string;
+  fatherOccupation: string;
+  fatherContactNo: string;
+  motherName: string;
+  motherOccupation: string;
+  motherContactNo: string;
+};
+
+export type TLocalGuardian = {
+  name: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+};
 
 export type TStudent = {
-	user: Types.ObjectId;
-	userid: string;
-	fullName: TFullName;
-	gender: "MALE" | "FEMALE";
-	dateOfBirth: Date;
-	avatar: string;
-	address: TAddress;
-	contact: string[];
-	emergencyContact: string;
-	guardian: TGuardian;
-    localGuardian: TGuardian;
-	admissionSemester: Types.ObjectId;
-	enrolledSemester: Types.ObjectId[];
-	department: Types.ObjectId;
-	faculty: Types.ObjectId;
-	enrolledCourses: Types.ObjectId[];
+  id: string;
+  user: Types.ObjectId;
+  name: TUserName;
+  gender: 'male' | 'female' | 'other';
+  dateOfBirth?: Date;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloogGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+  presentAddress: string;
+  permanentAddress: string;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
+  profileImg?: string;
+  admissionSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
+  academicFaculty: Types.ObjectId;
+  isDeleted: boolean;
 };
+
+//for creating static
+export interface StudentModel extends Model<TStudent> {
+  // eslint-disable-next-line no-unused-vars
+  isUserExists(id: string): Promise<TStudent | null>;
+}

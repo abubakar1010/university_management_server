@@ -1,15 +1,30 @@
-import { TUserStatus, TUserRole } from "../../types";
+/* eslint-disable no-unused-vars */
+import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constant';
 
-export type TUser = {
-	userid: string;
-	email: string;
-	password: string;
-	status: TUserStatus;
-	role: TUserRole;
-	lastPasswordChange: Date;
-};
+export interface TUser {
+  id: string;
+  email: string;
+  password: string;
+  needsPasswordChange: boolean;
+  passwordChangedAt?: Date;
+  role: 'superAdmin' | 'admin' | 'student' | 'faculty';
+  status: 'in-progress' | 'blocked';
+  isDeleted: boolean;
+}
 
-export type TLoginCredential = {
-	userid: string;
-	password: string;
-};
+export interface UserModel extends Model<TUser> {
+  //instance methods for checking if the user exist
+  isUserExistsByCustomId(id: string): Promise<TUser>;
+  //instance methods for checking if passwords are matched
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean>;
+  isJWTIssuedBeforePasswordChanged(
+    passwordChangedTimestamp: Date,
+    jwtIssuedTimestamp: number,
+  ): boolean;
+}
+
+export type TUserRole = keyof typeof USER_ROLE;

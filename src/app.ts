@@ -1,29 +1,32 @@
-import express from 'express'
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express, { Application, Request, Response } from 'express';
+import globalErrorHandler from './app/middlewares/globalErrorhandler';
+import notFound from './app/middlewares/notFound';
+import router from './routes';
 
-import { notFoundRoute } from './app/utils/notFoundRoute'
-import globalErrorHandler from './app/middleware/globalErrorHandler'
-import { rootRoute } from './routes/route'
+const app: Application = express();
 
-const app = express()
+//parsers
+app.use(express.json());
+app.use(cookieParser());
 
-// parser
+app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
 
-app.use(express.json())
+// application routes
+app.use('/api/v1', router);
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('server connected !');
+});
 
+app.use(globalErrorHandler);
 
-
-
-// route middleware
-
-app.use("/api/v1", rootRoute)
-
-app.get("/", (req, res) => {
-    res.send("Server is connected")
-})
-
-
-app.use(notFoundRoute)
-app.use(globalErrorHandler)
+//Not Found
+app.use(notFound);
 
 export default app;

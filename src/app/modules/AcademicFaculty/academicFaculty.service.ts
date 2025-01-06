@@ -1,31 +1,50 @@
-import ApiError from "../../utils/ApiError";
-import { TAcademicFaculty } from "./academicFaculty.interface";
-import { AcademicFaculty } from "./academicFaculty.model";
+import QueryBuilder from '../../builder/QueryBuilder';
+import { AcademicFacultySearchableFields } from './academicFaculty.constant';
+import { TAcademicFaculty } from './academicFaculty.interface';
+import { AcademicFaculty } from './academicFaculty.model';
 
-const createAcademicFacultyService = async (
-	academicFacultyData: Partial<TAcademicFaculty>
-) => {
-	const { academicFacultyName } = academicFacultyData;
-
-	const academicFaculty = await AcademicFaculty.findOne(academicFacultyData);
-
-	if (academicFaculty)
-		throw new ApiError(409, "This academic faculty is already exist");
-
-	const newAcademicFaculty = new AcademicFaculty(academicFacultyData);
-
-	await newAcademicFaculty.save();
-
-	const createdAcademicFaculty = await AcademicFaculty.findOne({
-		academicFacultyName,
-	});
-
-	if (!createdAcademicFaculty)
-		throw new ApiError(500, "Failed to create course");
-
-	return createdAcademicFaculty;
+const createAcademicFacultyIntoDB = async (payload: TAcademicFaculty) => {
+  const result = await AcademicFaculty.create(payload);
+  return result;
 };
 
-export const academicFacultyService = {
-	createAcademicFacultyService,
+const getAllAcademicFacultiesFromDB = async (
+  query: Record<string, unknown>,
+) => {
+  const academicFacultyQuery = new QueryBuilder(AcademicFaculty.find(), query)
+    .search(AcademicFacultySearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await academicFacultyQuery.modelQuery;
+  const meta = await academicFacultyQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
+};
+
+const getSingleAcademicFacultyFromDB = async (id: string) => {
+  const result = await AcademicFaculty.findById(id);
+  return result;
+};
+
+const updateAcademicFacultyIntoDB = async (
+  id: string,
+  payload: Partial<TAcademicFaculty>,
+) => {
+  const result = await AcademicFaculty.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return result;
+};
+
+export const AcademicFacultyServices = {
+  createAcademicFacultyIntoDB,
+  getAllAcademicFacultiesFromDB,
+  getSingleAcademicFacultyFromDB,
+  updateAcademicFacultyIntoDB,
 };

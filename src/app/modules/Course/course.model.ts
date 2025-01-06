@@ -1,36 +1,72 @@
+import { Schema, model } from 'mongoose';
+import {
+  TCourse,
+  TCoursefaculty,
+  TPreRequisiteCourses,
+} from './course.interface';
 
-import { model, Schema } from "mongoose";
-import { TCourse } from "./course.interface";
-
-const courseSchema = new Schema<TCourse>(
-    {
-        courseName:{
-            type: String,
-            required: [true, "Course name is require"]
-        },
-        code:{
-            type: Number,
-            required: [true, "Course code is require"]
-        },
-        prefix:{
-            type: String,
-            required: [true, "Prefix is require"]
-        },
-        courseTitle:{
-            type: String,
-            required: [true, "Course name is require"]
-        },
-        prerequisite: [
-            {
-                type: Schema.ObjectId,
-                required: [true, "Prerequisite course reference is required"]
-            }
-        ]
-
+const preRequisiteCoursesSchema = new Schema<TPreRequisiteCourses>(
+  {
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: 'Course',
     },
-    {
-        timestamps: true
-    }
-)
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    _id: false,
+  },
+);
 
-export const Course = model<TCourse>("Course", courseSchema)
+const courseSchema = new Schema<TCourse>({
+  title: {
+    type: String,
+    unique: true,
+    trim: true,
+    required: true,
+  },
+  prefix: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  code: {
+    type: Number,
+    trim: true,
+    required: true,
+  },
+  credits: {
+    type: Number,
+    trim: true,
+    required: true,
+  },
+  preRequisiteCourses: [preRequisiteCoursesSchema],
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+export const Course = model<TCourse>('Course', courseSchema);
+
+const courseFacultySchema = new Schema<TCoursefaculty>({
+  course: {
+    type: Schema.Types.ObjectId,
+    ref: 'Course',
+    unique: true,
+  },
+  faculties: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Faculty',
+    },
+  ],
+});
+
+export const CourseFaculty = model<TCoursefaculty>(
+  'CourseFaculty',
+  courseFacultySchema,
+);

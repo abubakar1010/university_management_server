@@ -1,31 +1,59 @@
-import ApiError from "../../utils/ApiError";
-import { AcademicDepartment } from "./academicDepartment.model";
-import { TAcademicDepartment } from "./academicDepartment.interface";
+import QueryBuilder from '../../builder/QueryBuilder';
+import { TAcademicDepartment } from './academicDepartment.interface';
+import { AcademicDepartment } from './academicDepartment.model';
+import { AcademicDepartmentSearchableFields } from './academicDepartmets.constant';
 
-const createAcademicDepartmentService = async (
-	academicDepartmentData: Partial<TAcademicDepartment>
-) => {
-	const { departmentName } = academicDepartmentData;
-
-	const academicDepartment = await AcademicDepartment.findOne({departmentName});
-
-	if (academicDepartment)
-		throw new ApiError(409, "This academic department is already exist");
-
-	const newAcademicDepartment = new AcademicDepartment(academicDepartmentData);
-
-	await newAcademicDepartment.save();
-
-	const createdAcademicDepartment = await AcademicDepartment.findOne({
-		departmentName: newAcademicDepartment.departmentName
-	});
-
-	if (!createdAcademicDepartment)
-		throw new ApiError(500, "Failed to create Academic department");
-
-	return createdAcademicDepartment;
+const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
+  const result = await AcademicDepartment.create(payload);
+  return result;
 };
 
-export const academicDepartmentService = {
-	createAcademicDepartmentService,
+const getAllAcademicDepartmentsFromDB = async (
+  query: Record<string, unknown>,
+) => {
+  const academicDepartmentQuery = new QueryBuilder(
+    AcademicDepartment.find().populate('academicFaculty'),
+    query,
+  )
+    .search(AcademicDepartmentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await academicDepartmentQuery.modelQuery;
+  const meta = await academicDepartmentQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
+};
+
+const getSingleAcademicDepartmentFromDB = async (id: string) => {
+  const result =
+    await AcademicDepartment.findById(id).populate('academicFaculty');
+
+  return result;
+};
+
+const updateAcademicDepartmentIntoDB = async (
+  id: string,
+  payload: Partial<TAcademicDepartment>,
+) => {
+  const result = await AcademicDepartment.findOneAndUpdate(
+    { _id: id },
+    payload,
+    {
+      new: true,
+    },
+  );
+  return result;
+};
+
+export const AcademicDepartmentServices = {
+  createAcademicDepartmentIntoDB,
+  getAllAcademicDepartmentsFromDB,
+  getSingleAcademicDepartmentFromDB,
+  updateAcademicDepartmentIntoDB,
 };
